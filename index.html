@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#08090d;
+  color:#f4f4f5;
+  overflow-x:hidden;
+}
+button{font:inherit}
+#lockScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 50% 20%,#252a36 0,#101218 35%,#08090d 75%);
+}
+.lockCard{
+  width:min(680px,94vw);
+  text-align:center;
+  padding:42px 22px;
+  border:1px solid #ffffff18;
+  border-radius:28px;
+  background:#11131ae8;
+  box-shadow:0 25px 80px #0009;
+}
+.lockCard h1{
+  margin:0 0 10px;
+  font-size:clamp(30px,7vw,52px);
+  letter-spacing:-1px;
+}
+.lockCard p{
+  color:#aeb3bf;
+  margin:0;
+}
+.timer{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:34px 0;
+}
+.timeBox{
+  padding:17px 5px;
+  border-radius:17px;
+  background:#181b23;
+  border:1px solid #ffffff10;
+}
+.timeBox strong{
+  display:block;
+  font-size:clamp(25px,7vw,43px);
+  line-height:1;
+}
+.timeBox span{
+  display:block;
+  margin-top:8px;
+  color:#858b98;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+#surpriseBtn{
+  display:none;
+  border:1px solid #ffffff18;
+  border-radius:999px;
+  padding:14px 25px;
+  color:#fff;
+  background:#242934;
+  box-shadow:0 8px 30px #0007;
+  cursor:pointer;
+}
+#surpriseBtn:hover{background:#303643}
+#surprise{display:none;min-height:100vh;background:#0b0c10}
+.hero{
+  min-height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:70px 20px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 25%,#252a35 0,#101218 45%,#0b0c10 80%);
+}
+.heroInner{max-width:760px}
+.hero h1{
+  margin:0 0 18px;
+  font-size:clamp(40px,9vw,78px);
+}
+.hero p{
+  color:#b8bdc8;
+  font-size:18px;
+  line-height:1.7;
+}
+.content{width:min(900px,92vw);margin:auto;padding:20px 0 80px}
+.section{
+  margin:28px 0;
+  padding:28px;
+  border-radius:25px;
+  background:#12141a;
+  border:1px solid #ffffff0d;
+  box-shadow:0 15px 45px #0005;
+}
+.section h2{margin-top:0}
+.section p{color:#b9bec8;line-height:1.7}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.gallery img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:17px;
+  background:#1a1c23;
+}
+.favorite img{
+  width:100%;
+  max-height:650px;
+  object-fit:contain;
+  border-radius:20px;
+  background:#090a0d;
+}
+.musicButton{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:54px;
+  height:54px;
+  border:1px solid #ffffff18;
+  border-radius:50%;
+  background:#181b23;
+  color:#fff;
+  cursor:pointer;
+  z-index:50;
+  box-shadow:0 10px 30px #0008;
+}
+.player{
+  display:none;
+  position:fixed;
+  right:18px;
+  bottom:84px;
+  width:min(270px,calc(100vw - 36px));
+  padding:16px;
+  border:1px solid #ffffff12;
+  border-radius:20px;
+  background:#15171eeF;
+  box-shadow:0 18px 45px #0009;
+  z-index:49;
+}
+.player small{color:#858b98}
+#songTitle{display:block;margin-top:5px}
+.controls{display:flex;justify-content:center;gap:9px;margin-top:14px}
+.controls button{
+  width:42px;height:38px;
+  border:0;border-radius:12px;
+  background:#252a34;color:#fff;
+  cursor:pointer;
+}
+@media(max-width:520px){
+  .timer{gap:6px}
+  .timeBox{padding:14px 2px}
+  .gallery img{height:175px}
+  .section{padding:21px}
+}
+</style>
+</head>
+
+<body>
+
+<section id="lockScreen">
+  <div class="lockCard">
+    <h1>Something is waiting...</h1>
+    <p>You'll know when the time comes.</p>
+
+    <div class="timer">
+      <div class="timeBox"><strong id="days">00</strong><span>Days</span></div>
+      <div class="timeBox"><strong id="hours">00</strong><span>Hours</span></div>
+      <div class="timeBox"><strong id="minutes">00</strong><span>Minutes</span></div>
+      <div class="timeBox"><strong id="seconds">00</strong><span>Seconds</span></div>
+    </div>
+
+    <button id="surpriseBtn" onclick="openSurprise()">Click for the Surprise</button>
+  </div>
+</section>
+
+<section id="surprise">
+  <div class="hero">
+    <div class="heroInner">
+      <h1>Happy Birthday, Melisha 🎂</h1>
+      <p>
+        Today is a little different.<br>
+        Here's something made just for you.
+      </p>
+    </div>
+  </div>
+
+  <main class="content">
+    <section class="section">
+      <h2>📸 Memories</h2>
+      <div class="gallery">
+        <img src="IMG_20260601_230645_620.jpg" alt="Memory">
+        <img src="IMG_20260601_230645_621.jpg" alt="Memory">
+        <img src="IMG_20260629_220248_119.jpg" alt="Memory">
+        <img src="IMG_20260722_132045_006.jpg" alt="Memory">
+        <img src="IMG_20260722_132300_682.jpg" alt="Memory">
+        <img src="IMG_20260722_142044_497.jpg" alt="Memory">
+        <img src="IMG_20260723_133413_273.jpg" alt="Memory">
+        <img src="IMG_20260723_134155_896.jpg" alt="Memory">
+      </div>
+    </section>
+
+    <section class="section favorite">
+      <h2>💗 My Favorite</h2>
+      <img src="IMG_20260722_142044_497.jpg" alt="Favorite memory">
+    </section>
+
+    <section class="section">
+      <h2>💌 A Little Message</h2>
+      <p>
+        Wishing you a day full of happiness, laughter and memories
+        that stay with you for a long time. Keep smiling and keep being yourself.
+      </p>
+    </section>
+  </main>
+</section>
+
+<button class="musicButton" onclick="togglePlayer()" aria-label="Music">🎵</button>
+
+<div class="player" id="player">
+  <small>NOW PLAYING</small>
+  <strong id="songTitle">Give It Up to Me</strong>
+  <div class="controls">
+    <button onclick="previousSong()">⏮</button>
+    <button onclick="toggleMusic()" id="playPause">▶</button>
+    <button onclick="nextSong()">⏭</button>
+  </div>
+</div>
+
+<audio id="music" preload="metadata"></audio>
+
+<script>
+/*
+  November 3, 2026 at 12:00 AM in Nepal.
+  Nepal is UTC+05:45, so the target instant is
+  November 2, 2026 at 18:15:00 UTC.
+*/
+const endTime = Date.UTC(2026,10,2,18,15,0);
+
+const daysEl=document.getElementById("days");
+const hoursEl=document.getElementById("hours");
+const minutesEl=document.getElementById("minutes");
+const secondsEl=document.getElementById("seconds");
+const surpriseBtn=document.getElementById("surpriseBtn");
+
+function updateCountdown(){
+  const remaining=Math.max(0,endTime-Date.now());
+
+  if(remaining===0){
+    daysEl.textContent="00";
+    hoursEl.textContent="00";
+    minutesEl.textContent="00";
+    secondsEl.textContent="00";
+    surpriseBtn.style.display="inline-block";
+    return;
+  }
+
+  const totalSeconds=Math.floor(remaining/1000);
+
+  // Correctly split the total into separate units.
+  const days=Math.floor(totalSeconds/86400);
+  const hours=Math.floor((totalSeconds%86400)/3600);
+  const minutes=Math.floor((totalSeconds%3600)/60);
+  const seconds=totalSeconds%60;
+
+  daysEl.textContent=String(days).padStart(2,"0");
+  hoursEl.textContent=String(hours).padStart(2,"0");
+  minutesEl.textContent=String(minutes).padStart(2,"0");
+  secondsEl.textContent=String(seconds).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+function openSurprise(){
+  document.getElementById("lockScreen").style.display="none";
+  document.getElementById("surprise").style.display="block";
+  window.scrollTo(0,0);
+  loadSong(0,true);
+}
+
+const songs=[
+  {file:"M6RWTADWOJ.mp4",title:"Give It Up to Me"},
+  {file:"wokeup.mp4",title:"Woke Up"},
+  {file:"thatshouldbeme.mp4",title:"That Should Be Me"},
+  {file:"riskitall.mp4",title:"Risk It All"}
+];
+
+let currentSong=0;
+const audio=document.getElementById("music");
+const songTitle=document.getElementById("songTitle");
+const playPause=document.getElementById("playPause");
+
+function loadSong(index,play=false){
+  currentSong=(index+songs.length)%songs.length;
+  audio.src=songs[currentSong].file;
+  songTitle.textContent=songs[currentSong].title;
+  if(play){
+    audio.play()
+      .then(()=>playPause.textContent="⏸")
+      .catch(()=>{});
+  }
+}
+function togglePlayer(){
+  const p=document.getElementById("player");
+  p.style.display=p.style.display==="block"?"none":"block";
+}
+function toggleMusic(){
+  if(audio.paused){
+    audio.play().then(()=>playPause.textContent="⏸").catch(()=>{});
+  }else{
+    audio.pause();
+    playPause.textContent="▶";
+  }
+}
+function nextSong(){loadSong(currentSong+1,true)}
+function previousSong(){loadSong(currentSong-1,true)}
+audio.addEventListener("ended",()=>nextSong());
+loadSong(0,false);
+</script>
+
+</body>
+</html>
